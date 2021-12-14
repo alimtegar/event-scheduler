@@ -9,7 +9,21 @@ const Events = () => {
     const events = [
         {
             id: 0,
-            title: 'Sleep 24h',
+            title: 'I Want to Sleep',
+            description: 'Ut sodales ante quis justo molestie, vitae pharetra velit fermentum. Pellentesque sit amet enim elit.',
+            startTime: '2021-12-01 08:00:00',
+            endTime: '2021-12-30 08:00:00',
+            tags: [
+                { 
+                    id: 0,
+                    title: 'Sleep',
+                    color: 'purple',
+                }
+            ],
+        },
+        {
+            id: 0,
+            title: 'Sleep 24H',
             description: 'Ut sodales ante quis justo molestie, vitae pharetra velit fermentum. Pellentesque sit amet enim elit.',
             startTime: '2021-12-01 08:00:00',
             endTime: '2021-12-30 08:00:00',
@@ -28,9 +42,9 @@ const Events = () => {
             <Navbar />
 
             <section className="p-6">
-                <div className="-my-1">
+                <div className="-my-2">
                     {events && events.map((event) => (
-                        <div className="py-1" key={event.id}>
+                        <div className="py-2" key={event.id}>
                             <Event {...event} />
                         </div>
                     ))}

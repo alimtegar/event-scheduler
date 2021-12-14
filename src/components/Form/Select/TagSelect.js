@@ -1,38 +1,40 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+import { XIcon, ChevronDownIcon } from '@heroicons/react/outline'
 import classNames from 'classnames';
 
 import Tag from '../../Tag';
-
-const tags = [
-	{
-		id: 1,
-		title: 'Wade Cooper',
-		color: 'red',
-	},
-	{
-		id: 2,
-		title: 'Arlene Mccoy',
-		color: 'orange',
-	},
-	{
-		id: 3,
-		title: 'Devon Webb',
-		color: 'green',
-	},
-	{
-		id: 4,
-		title: 'Tom Cook',
-		color: 'blue',
-	},
-]
+import { Button, Input, Label } from '..';
 
 const TagSelect = () => {
-	const [selectedTags, setSelectedTags] = useState([tags[3]]);
+	const initForm = {
+		id: 0,
+		title: '',
+		color: '#000000',
+	};
+	const [tags, setTags] = useState([
+		{
+			id: 1,
+			title: 'Urgent',
+			color: 'red',
+		},
+		{
+			id: 3,
+			title: 'Not Urgent',
+			color: 'green',
+		},
+		{
+			id: 4,
+			title: 'Bath',
+			color: 'blue',
+		},
+	]);
+	const [selectedTags, setSelectedTags] = useState([]);
+	const [form, setForm] = useState(initForm);
 
 	const isSelectedTag = (tag) => selectedTags.some((selectedTag) => selectedTag === tag);
-	const handleChange = (value) => {
+
+	const handleListBoxChange = (value) => {
 		if (isSelectedTag(value)) {
 			let _selectedTags = selectedTags;
 
@@ -41,20 +43,35 @@ const TagSelect = () => {
 		} else {
 			setSelectedTags([...selectedTags, value])
 		}
-	}
+	};
+
+	const handleChange = (e) => setForm({
+		...form,
+		[e.target.name]: [e.target.value],
+	});
+
+	const handleSubmit = (e) => {
+		setTags([...tags, form]);
+		setForm(initForm);
+	};
 
 	return (
-		<Listbox value={selectedTags} onChange={handleChange}>
+		<Listbox value={selectedTags} onChange={handleListBoxChange}>
 			{({ open }) => (
 				<>
 					<div className="mt-1 relative">
-						<Listbox.Button className="relative w-full p-2 border-b-[3px] border-gray-200 hover:border-gray-900 text-left cursor-default focus:outline-none">
-							<div className="-mx-1"></div>
-							{selectedTags.map((selectedTag) => (
+						<Listbox.Button className="relative w-full h-[42px] p-2 border-b-2 border-gray-200 hover:border-gray-900 text-sm text-left cursor-default focus:outline-none">
+							{selectedTags.length ? selectedTags.map((selectedTag) => (
 								<span className="mx-1" key={selectedTag.id}>
 									<Tag {...selectedTag} />
 								</span>
-							))}
+							)) : <span>Select Tag</span>}
+							<span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+								<ChevronDownIcon
+									className="w-5 h-5 text-gray-400"
+									aria-hidden="true"
+								/>
+							</span>
 						</Listbox.Button>
 
 						<Transition
@@ -64,29 +81,45 @@ const TagSelect = () => {
 							leaveFrom="opacity-100"
 							leaveTo="opacity-0"
 						>
-							<Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+							<Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-96 rounded py-4 text-base overflow-auto focus:outline-none sm:text-sm">
+
+								<form className="flex items-end px-4 pb-4 -mx-2" onSubmit={handleSubmit}>
+									<div className="w-8/12 px-2">
+										<Label>
+											Title
+										</Label>
+										<Input name="title" value={form.title} onChange={handleChange} />
+									</div>
+									<div className="w-2/12 px-2">
+										<Label>
+											Color
+										</Label>
+										<Input type="color" name="color" placeholder="Pick Color" value={form.color} onChange={handleChange} />
+									</div>
+									<div className="w-2/12 px-2">
+										<Button.Primary onClick={handleSubmit}>
+											Create Tag
+										</Button.Primary>
+									</div>
+								</form>
+
 								{tags.map((tag) => (
 									<Listbox.Option
 										key={tag.id}
-										className={classNames('cursor-pointer select-none relative py-2 pl-2 pr-9', {
-											'text-white bg-gray-50': isSelectedTag(tag),
-											'text-gray-900': !isSelectedTag(tag),
+										className={classNames('cursor-pointer select-none relative hover:bg-gray-50 py-2 pl-4 pr-9', {
+											'bg-gray-50': isSelectedTag(tag),
 										})}
 										value={tag}
-
 									>
-										<div className="inline-flex items-center bg-white rounded-full">
+										<div className="inline-flex items-center">
 											<Tag {...tag} />
 										</div>
 
 										{isSelectedTag(tag) ? (
 											<span
-												className={classNames('absolute inset-y-0 right-0 flex items-center pr-4', {
-													'text-white': !isSelectedTag(tag),
-													'text-gray-900': isSelectedTag(tag),
-												})}
+												className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500"
 											>
-												<CheckIcon className="h-5 w-5" aria-hidden="true" />
+												<XIcon className="h-5 w-5" aria-hidden="true" />
 											</span>
 										) : null}
 									</Listbox.Option>

@@ -1,12 +1,15 @@
 import classNames from 'classnames';
 
-const Input = ({type = 'text', placeholder, width = 'full'}) => (
+const Input = ({ type = 'text', placeholder, width = 'full', height = '[42px]', ...props }) => (
     <input
         type={type}
         {...placeholder && { placeholder: placeholder }}
-        className={classNames('text-gray-900 text-sm pt-[6px] p-2 border-b-[3px] border-gray-200 hover:border-gray-900 focus:outline-none', {
+        className={classNames('bg-white text-gray-900 text-sm pt-[6px] p-2 border-b-2 border-gray-200 hover:border-gray-900 focus:border-gray-900 focus:outline-none', {
             [`w-${width}`]: width,
-        })} />
+            [`h-${height}`]: height,
+        })}
+        {...props}
+    />
 );
 
 export default Input;
