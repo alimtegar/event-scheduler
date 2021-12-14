@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { Link } from 'react-router-dom';
-import DatePicker from "react-datepicker";
 
-import { Label, Input, Button } from './Form';
+import { Label, Input, Button, DatePicker } from './Form';
 
 const Navbar = () => {
     const [startDate, setStartDate] = useState(new Date());
 
     return (
-        <div className="sticky bg-white p-6 shadow">
+        <div className="bg-white p-6 shadow">
             <nav className="flex justify-between items-center text-gray-900 w-full">
                 <Link to="/">
-                    <h1 className="font-extrabold text-lg">
+                    <h1 className="font-extrabold">
                         Event Scheduler
                     </h1>
                 </Link>
@@ -35,7 +34,7 @@ const Navbar = () => {
                     <Label marginBottom={2}>
                         Filter by
                     </Label>
-                    <select name="" id="" className="appearance-none w-full text-gray-900 text-sm pt-[6px] p-2 border-b-[2px] border-gray-200 hover:border-gray-900 focus:outline-none">
+                    <select name="" id="" className="appearance-none w-full h-[42px] text-gray-900 text-sm p-2 border-b-[2px] border-gray-200 hover:border-gray-900 focus:outline-none">
                         <option value="">Date</option>
                         <option value="">Date Range</option>
                     </select>
@@ -44,15 +43,13 @@ const Navbar = () => {
                     <Label marginBottom={2}>
                         Date
                     </Label>
-                    <div className="inline-flex w-full">
-                        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} className="w-full text-gray-900 text-sm pt-[6px] p-2 border-b-[2px] border-gray-200 hover:border-gray-900 focus:outline-none" />
-                    </div>
+                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                 </div>
                 <div className="inline-flex flex-col px-1 w-2/12">
                     <Label marginBottom={2}>
                         Tag
                     </Label>
-                    <select name="" id="" className="appearance-none w-full text-gray-900 text-sm pt-[6px] p-2 border-b-[2px] border-gray-200 hover:border-gray-900 focus:outline-none">
+                    <select name="" id="" className="appearance-none w-full h-[42px] text-gray-900 text-sm p-2 border-b-[2px] border-gray-200 hover:border-gray-900 focus:outline-none">
                         <option value="">Select Tag</option>
                     </select>
                 </div>
