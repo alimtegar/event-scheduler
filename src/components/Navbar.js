@@ -9,11 +9,19 @@ const Navbar = () => {
     return (
         <div className="bg-white p-6 shadow">
             <nav className="flex justify-between items-center text-gray-900 w-full">
-                <Link to="/">
-                    <h1 className="font-extrabold text-lg">
-                        {process.env.REACT_APP_NAME}
-                    </h1>
-                </Link>
+                <div className="flex items-center">
+                    <Link to="/">
+                        <h1 className="font-extrabold text-md">
+                            {process.env.REACT_APP_NAME}
+                        </h1>
+                    </Link>
+                    <span className="text-gray-300 text-sm mx-2">
+                        |
+                    </span>
+                    <span className="text-gray-500 text-xs">
+                    © Alim Tegar 2021
+                    </span>
+                </div>
 
                 <div className="flex items-center -my-2">
                     <div className="inline-flex bg-gray-200 w-8 h-8 rounded-full mr-4"></div>

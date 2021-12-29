@@ -31,7 +31,7 @@ const Events = () => {
             </section>
 
             <Link to="/events/create" className="fixed right-0 bottom-0 m-6">
-                <Button.Primary width={16} height={16} center>
+                <Button.Primary height="lg" circle>
                     <PlusIcon className="w-8 h-8" />
                 </Button.Primary>
             </Link>

@@ -64,7 +64,7 @@ const Event = () => {
                 })
             })
             .catch((err) => console.error(err));
-    }, []);
+    }, [id]);
 
     return (
         <div>
@@ -109,7 +109,7 @@ const Event = () => {
                         </div>
                         <div className="flex justify-end pt-6 pb-2 -mx-1">
                             <div className="px-1">
-                                <Button.Outline color="red-500" width="auto" onClick={deleteEvent}>
+                                <Button.Outline color="red" width="auto" onClick={deleteEvent}>
                                     Delete
                                 </Button.Outline>
                             </div>

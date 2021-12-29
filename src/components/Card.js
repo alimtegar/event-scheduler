@@ -4,7 +4,7 @@ const Card = ({ children, icon, title, description }) => (
     <div className="bg-white py-6 rounded shadow">
         <div className="py-4 px-6 mb-8 border-l-[4px] border-gray-900">
             <div className="flex items-center">
-                <Frame size={16}>
+                <Frame size="md">
                     {icon}
                 </Frame>
                 <div>

@@ -3,6 +3,9 @@ module.exports = {
     './public/**/*.html',
     './src/**/*.{js,jsx,ts,tsx,vue}',
   ],
+  options: {
+    safelist: [{ variants: [ 'w' ] }]
+  },
   theme: {
     extend: {},
   },
