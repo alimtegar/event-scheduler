@@ -1,11 +1,14 @@
+import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import { MenuAlt2Icon, ClockIcon } from '@heroicons/react/outline';
+import { MenuAlt2Icon, CalendarIcon,LocationMarkerIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon } from '@heroicons/react/solid';
 
 import Frame from './Frame';
 import Tag from './Tag';
+import { Button } from './Form';
 
-const Event = ({ title, description, startTime, endTime, tags }) => (
-    <div className="flex items-center bg-white p-6 rounded border-l-[4px] border-gray-900 shadow">
+const Event = ({ id, title, description, startTime, endTime, tags }) => (
+    <div className="flex items-center bg-white p-4 rounded border-l-[4px] border-gray-900 shadow">
         <div>
             <Frame size={20}>
                 <span className="font-extrabold text-2xl">{format(new Date(endTime), 'dd')}</span>
@@ -22,7 +25,7 @@ const Event = ({ title, description, startTime, endTime, tags }) => (
                 {tags && (
                     <span className="ml-2 -mx-1">
                         {tags.map((tag) => (
-                            <span className="mx-1">
+                            <span className="mx-1" key={tag.id}>
                                 <Tag {...tag} />
                             </span>
                         ))}
@@ -32,31 +35,36 @@ const Event = ({ title, description, startTime, endTime, tags }) => (
 
             <div className="flex w-full">
                 {description && (
-                    <div className="mr-16">
-                        <h2 className="flex items-center font-bold text-gray-900 text-xs mb-1.5">
-                            <MenuAlt2Icon className="inline-flex w-4 h-4 mr-1.5" />
-                            Description
-                        </h2>
-                        <p className="text-xs text-gray-500 w-96 h-6" style={{
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                        }}>
+                    <div className="flex flex-row mr-8">
+                        {/* <h2 className="flex items-center font-bold text-gray-900 text-xs mb-1.5"> */}
+                        <MenuAlt2Icon className="inline-flex text-gray-900 font-bold w-3.5 h-3.5 mt-[1px] mr-2" />
+                        {/* Description */}
+                        {/* </h2> */}
+                        <p className="text-xs text-gray-500 w-96 h-8">
                             {description}
                         </p>
                     </div>
                 )}
 
-                <div className="flex flex-col mr-16">
-                    <h2 className="flex items-center font-bold text-gray-900 text-xs mb-1.5">
-                        <ClockIcon className="inline-flex w-4 h-4 mr-1.5" />
-                        Time
-                    </h2>
+                <div className="flex flex-row mr-8">
+                    {/* <h2 className="flex items-center font-bold text-gray-900 text-xs mb-1.5"> */}
+                    <CalendarIcon className="inline-flex text-gray-900 font-bold w-3.5 h-3.5 mt-[1px] mr-2" />
+                    {/* Time */}
+                    {/* </h2> */}
                     <span className="text-gray-500 text-xs">
-                        {format(new Date(startTime), 'dd MMMM yyyy hh:ii:ss')} - {format(new Date(endTime), 'dd MMMM yyyy hh:ii:ss')}
+                        {format(new Date(startTime), 'dd MMMM yyyy')} - {format(new Date(endTime), 'dd MMMM yyyy')}
                     </span>
                 </div>
+
             </div>
+        </div>
+
+        <div className="pr-4">
+            <Link to={`events/${id}`}>
+                <Button.Outline width="[42px]" center>
+                    <ChevronRightIcon className="w-5 h-5" />
+                </Button.Outline>
+            </Link>
         </div>
     </div>
 );

@@ -10,8 +10,8 @@ const Navbar = () => {
         <div className="bg-white p-6 shadow">
             <nav className="flex justify-between items-center text-gray-900 w-full">
                 <Link to="/">
-                    <h1 className="font-extrabold">
-                        Event Scheduler
+                    <h1 className="font-extrabold text-lg">
+                        {process.env.REACT_APP_NAME}
                     </h1>
                 </Link>
 
@@ -19,7 +19,7 @@ const Navbar = () => {
                     <div className="inline-flex bg-gray-200 w-8 h-8 rounded-full mr-4"></div>
                     <div className="flex flex-col -mt-0.5">
                         <span className="text-gray-500 text-xs">Logged in as </span>
-                        <span className="font-bold text-xs">Alim Tegar Wicaksono</span>
+                        <span className="font-bold text-xs">{process.env.REACT_APP_DUMMY_USER_NAME}</span>
                     </div>
 
                 </div>
@@ -27,8 +27,7 @@ const Navbar = () => {
 
             <form action="" className="flex items-end flex-auto mt-4 -mx-1">
                 <div className="inline-flex flex-col px-1 w-5/12">
-                    <Input placeholder="Search event here..." />
-
+                    <Input placeholder="Search event schedule here..." />
                 </div>
                 <div className="inline-flex flex-col px-1 w-2/12">
                     <Label marginBottom={2}>

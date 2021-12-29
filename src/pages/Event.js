@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Label, Input, Button, Select, DatePicker } from '../components/Form';
-import { PlusIcon } from '@heroicons/react/outline';
+import { DocumentTextIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import swal from 'sweetalert';
 
 import Navbar from '../components/Navbar';
 import Card from '../components/Card';
 
-const CreateEvent = () => {
+const Event = () => {
     const initForm = {
         title: '',
         description: '',
@@ -16,6 +16,7 @@ const CreateEvent = () => {
         endTime: new Date(),
         tags: [],
     };
+    const { id } = useParams();
     const navigate = useNavigate();
     const [form, setForm] = useState(initForm);
 
@@ -25,21 +26,52 @@ const CreateEvent = () => {
     });
 
     const handleSubmit = () => {
-        axios.post(`${process.env.REACT_APP_API_URL}/events`, form, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
-            .then(() => {
-                setForm(initForm);
-                swal("Success", "success", "success")
-                    .then(() => navigate('/'));
-            })
+        axios.put(`${process.env.REACT_APP_API_URL}/events/${id}`, form, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
+            .then((res) => swal("Success!", "success", "success"))
             .catch((err) => console.error(err));
     }
+
+    const deleteEvent = () => {
+        swal({
+            title: "Are You Sure?",
+            text: "Nulla facilisi. Nunc sem odio.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.delete(`${process.env.REACT_APP_API_URL}/events/${id}`, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
+                        .then(() => swal("k", "success")
+                            .then(() => navigate('/')))
+                        .catch((err) => console.error(err));
+                } else {
+                    swal("k");
+                }
+            });
+    };
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/events/${id}`, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
+            .then((res) => {
+                console.log(res.data)
+                setForm({
+                    title: res.data.title,
+                    description: res.data.description,
+                    startTime: new Date(res.data.startTime),
+                    endTime: new Date(res.data.endTime),
+                    tags: res.data.tags,
+                })
+            })
+            .catch((err) => console.error(err));
+    }, []);
 
     return (
         <div>
             <Navbar />
 
             <section className="p-6">
-                <Card icon={(<PlusIcon className="w-8 h-8" />)} title="Add Event Schedule" description="Vitae fringilla sapien dictum sit amet.">
+                <Card icon={(<DocumentTextIcon className="w-8 h-8" />)} title="Event Schedule Details" description="Aenean sollicitudin erat leo.">
                     <form className="-my-2">
                         <div className="py-2">
                             <Label>
@@ -75,15 +107,15 @@ const CreateEvent = () => {
                             </Label>
                             <Select.Tag selectedTags={form.tags} setSelectedTags={(selectedTags) => setForm({ ...form, tags: selectedTags })} />
                         </div>
-                        <div className="text-right pt-6 pb-2 -mx-1">
-                            <span className="px-1">
-                                <Button.Outline width="auto">
-                                    Reset
+                        <div className="flex justify-end pt-6 pb-2 -mx-1">
+                            <div className="px-1">
+                                <Button.Outline color="red-500" width="auto" onClick={deleteEvent}>
+                                    Delete
                                 </Button.Outline>
-                            </span>
+                            </div>
                             <span className="px-1">
                                 <Button.Primary width="auto" onClick={handleSubmit}>
-                                    Submit
+                                    Save Changes
                                 </Button.Primary>
                             </span>
                         </div>
@@ -94,4 +126,4 @@ const CreateEvent = () => {
     );
 };
 
-export default CreateEvent;
+export default Event;

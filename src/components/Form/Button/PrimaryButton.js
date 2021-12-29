@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 
-const PrimaryButton = ({ children, type = "button", width = 'full', height = '[42px]', center = false, ...props }) => (
+const PrimaryButton = ({ children, type = 'button', width = 'full', height = '[42px]', center = false, ...props }) => (
     <button
         type={type}
-        className={classNames('inline-flex items-center justify-center font-bold bg-gray-900 hover:bg-gray-700 text-white hover:text-white text-sm rounded-full', {
+        className={classNames('inline-flex items-center justify-center font-bold bg-gray-900 hover:bg-gray-700 text-white hover:text-white text-sm rounded-full shadow-lg', {
             [`w-${width}`]: width,
             [`h-${height}`]: height,
             'pt-[7px] pb-[8px] px-6': !center,

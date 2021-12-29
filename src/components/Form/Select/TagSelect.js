@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from 'react'
 import axios from 'axios';
 import { Listbox, Transition } from '@headlessui/react'
-import { XIcon, ChevronDownIcon } from '@heroicons/react/outline'
+import { XIcon, ChevronDownIcon } from '@heroicons/react/solid'
 import classNames from 'classnames';
 
 import Tag from '../../Tag';
@@ -43,7 +43,7 @@ const TagSelect = ({ selectedTags, setSelectedTags }) => {
 	};
 
 	useEffect(() => {
-		axios.get(`${API_URL}/tags`, { headers: { Authorization: `Bearer ${USER_TOKEN}` } })
+		axios.get(`${API_URL}/tags`, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
 			.then((res) => setTags(res.data))
 			.catch((err) => console.error(err));
 	}, []);
