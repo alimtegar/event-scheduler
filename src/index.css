@@ -76,6 +76,14 @@ body {
     @apply bg-gray-900
 }
 
+.react-datepicker__close-icon::after {
+    @apply bg-transparent text-gray-400 text-xl
+}
+
+.react-datepicker__close-icon:hover::after {
+    @apply text-gray-900
+}
+
 /* SweetAlert 2 */
 .swal-modal {
     @apply rounded shadow

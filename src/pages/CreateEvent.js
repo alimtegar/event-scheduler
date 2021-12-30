@@ -81,7 +81,7 @@ const CreateEvent = () => {
                             </Label>
                             <Select.Tag selectedTags={form.tags} setSelectedTags={(selectedTags) => setForm({ ...form, tags: selectedTags })} />
                         </div>
-                        <div className="text-right pt-6 pb-2 -mx-1">
+                        <div className="flex justify-between pt-6 pb-2 -mx-1">
                             <span className="px-1">
                                 <Button.Outline width="auto">
                                     Reset
@@ -89,7 +89,7 @@ const CreateEvent = () => {
                             </span>
                             <span className="px-1">
                                 <Button.Primary width="auto" onClick={mutation.mutate}>
-                                    Submit
+                                    Add New
                                 </Button.Primary>
                             </span>
                         </div>

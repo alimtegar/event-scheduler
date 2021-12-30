@@ -8,8 +8,6 @@ import Tag from '../../Tag';
 import { Button, Input, Label } from '..';
 
 const TagSelect = ({ selectedTags, setSelectedTags }) => {
-	const API_URL = 'http://localhost:8080/api';
-	const USER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjM5NTEyMjg0LCJleHAiOjE2Mzk1OTg2ODR9.VkDgPsorP8eoHSY94mxIz7Cd8D8D4PDYdJTuu_dhhcI';
 	const initForm = {
 		id: 0,
 		title: '',
@@ -43,7 +41,7 @@ const TagSelect = ({ selectedTags, setSelectedTags }) => {
 	};
 
 	useEffect(() => {
-		axios.get(`${API_URL}/tags`, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
+		axios.get('/tags')
 			.then((res) => setTags(res.data))
 			.catch((err) => console.error(err));
 	}, []);
@@ -58,7 +56,7 @@ const TagSelect = ({ selectedTags, setSelectedTags }) => {
 								<span className="mx-1" key={selectedTag.id}>
 									<Tag {...selectedTag} />
 								</span>
-							)) : <span>Select Tag</span>}
+							)) : <span className="text-gray-400">Select Tags</span>}
 							<span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
 								<ChevronDownIcon
 									className="w-5 h-5 text-gray-400"
@@ -91,7 +89,7 @@ const TagSelect = ({ selectedTags, setSelectedTags }) => {
 									</div>
 									<div className="w-2/12 px-2">
 										<Button.Primary onClick={handleFormSubmit}>
-											Add Tag
+											Add New Tag
 										</Button.Primary>
 									</div>
 								</form>

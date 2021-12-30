@@ -103,7 +103,7 @@ const Event = () => {
                             </Label>
                             <Select.Tag selectedTags={form.tags} setSelectedTags={(selectedTags) => setForm({ ...form, tags: selectedTags })} />
                         </div>
-                        <div className="flex justify-end pt-6 pb-2 -mx-1">
+                        <div className="flex justify-between pt-6 pb-2 -mx-1">
                             <div className="px-1">
                                 <Button.Outline color="red" width="auto" onClick={() => swal({
                                     title: "Are You Sure?",
