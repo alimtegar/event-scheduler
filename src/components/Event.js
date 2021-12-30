@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import { MenuAlt2Icon, CalendarIcon,LocationMarkerIcon } from '@heroicons/react/outline';
+import { MenuAlt2Icon, CalendarIcon } from '@heroicons/react/outline';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 
 import Frame from './Frame';
@@ -18,9 +18,11 @@ const Event = ({ id, title, description, startTime, endTime, tags }) => (
 
         <div className="flex-auto">
             <div className="flex items-center mb-2">
-                <h2 className="inline-flex font-extrabold text-gray-900">
-                    {title}
-                </h2>
+                <Link to={`events/${id}`}>
+                    <h2 className="inline-flex font-extrabold text-gray-900 no-underline hover:underline hover:decoration-2">
+                        {title}
+                    </h2>
+                </Link>
 
                 {tags && (
                     <span className="ml-2 -mx-1">

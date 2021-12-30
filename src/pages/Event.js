@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Label, Input, Button, Select, DatePicker } from '../components/Form';
 import { DocumentTextIcon } from '@heroicons/react/outline';
-import axios from 'axios';
+import { useQuery, useMutation } from 'react-query';
 import swal from 'sweetalert';
 
+// Import components
 import Navbar from '../components/Navbar';
 import Card from '../components/Card';
+
+// Import API callers
+import { getEvent, updateEvent, deleteEvent } from '../api';
 
 const Event = () => {
     const initForm = {
@@ -25,46 +29,38 @@ const Event = () => {
         [e.target.name]: e.target.value,
     });
 
-    const handleSubmit = () => {
-        axios.put(`${process.env.REACT_APP_API_URL}/events/${id}`, form, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
-            .then((res) => swal("Success!", "success", "success"))
-            .catch((err) => console.error(err));
-    }
-
-    const deleteEvent = () => {
-        swal({
-            title: "Are You Sure?",
-            text: "Nulla facilisi. Nunc sem odio.",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    axios.delete(`${process.env.REACT_APP_API_URL}/events/${id}`, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
-                        .then(() => swal("k", "success")
-                            .then(() => navigate('/')))
-                        .catch((err) => console.error(err));
-                } else {
-                    swal("k");
-                }
+    useQuery(['event', id], () => getEvent(id), {
+        onSuccess: (event) => {
+            setForm({
+                title: event.title,
+                description: event.description,
+                startTime: new Date(event.startTime),
+                endTime: new Date(event.endTime),
+                tags: event.tags,
             });
-    };
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/events/${id}`, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
-            .then((res) => {
-                console.log(res.data)
-                setForm({
-                    title: res.data.title,
-                    description: res.data.description,
-                    startTime: new Date(res.data.startTime),
-                    endTime: new Date(res.data.endTime),
-                    tags: res.data.tags,
-                })
-            })
-            .catch((err) => console.error(err));
-    }, [id]);
+        },
+        onError: () => {
+            swal("error", "error", "error");
+        },
+    });
+    const updateMutation = useMutation(() => updateEvent(id, form), {
+        onSuccess: () => {
+            setForm(initForm);
+            swal("success", "success", "success");
+        },
+        onError: () => {
+            swal("error", "error", "error");
+        },
+    });
+    const deleteMutation = useMutation(() => deleteEvent(id), {
+        onSuccess: () => {
+            swal("success", "success", "success")
+                .then(() => navigate('/'));
+        },
+        onError: () => {
+            swal("error", "error", "error");
+        },
+    });
 
     return (
         <div>
@@ -89,13 +85,13 @@ const Event = () => {
                             <div className="flex flex-wrap -mx-1">
                                 <div className="w-6/12 px-1">
                                     <Label>
-                                        Start Time
+                                        From
                                     </Label>
                                     <DatePicker selected={form.startTime} onChange={(date) => setForm({ ...form, startTime: date })} />
                                 </div>
                                 <div className="w-6/12 px-1">
                                     <Label>
-                                        End Time
+                                        To
                                     </Label>
                                     <DatePicker selected={form.endTime} onChange={(date) => setForm({ ...form, endTime: date })} />
                                 </div>
@@ -109,12 +105,34 @@ const Event = () => {
                         </div>
                         <div className="flex justify-end pt-6 pb-2 -mx-1">
                             <div className="px-1">
-                                <Button.Outline color="red" width="auto" onClick={deleteEvent}>
+                                <Button.Outline color="red" width="auto" onClick={() => swal({
+                                    title: "Are You Sure?",
+                                    text: "Nulla facilisi. Nunc sem odio.",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                })
+                                    .then((willDelete) => {
+                                        if (willDelete) {
+                                            deleteMutation.mutate();
+                                        }
+                                    })
+                                }>
                                     Delete
                                 </Button.Outline>
                             </div>
                             <span className="px-1">
-                                <Button.Primary width="auto" onClick={handleSubmit}>
+                                <Button.Primary width="auto" onClick={() => swal({
+                                    title: "Are You Sure?",
+                                    text: "Nulla facilisi. Nunc sem odio.",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                })
+                                    .then((willDelete) => {
+                                        if (willDelete) { updateMutation.mutate(); }
+                                    })
+                                }>
                                     Save Changes
                                 </Button.Primary>
                             </span>

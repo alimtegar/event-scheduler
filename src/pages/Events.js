@@ -1,20 +1,15 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useQuery } from 'react-query';
 import { PlusIcon } from '@heroicons/react/outline';
 
 import { Button } from '../components/Form';
 import Navbar from '../components/Navbar';
 import Event from '../components/Event';
 
-const Events = () => {
-    const [events, setEvents] = useState([]);
+import { getEvents } from '../api';
 
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/events`, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
-            .then((res) => setEvents(res.data))
-            .catch((err) => console.error(err));
-    }, []);
+const Events = () => {
+    const { data: events } = useQuery('events', getEvents)
 
     return (
         <div>

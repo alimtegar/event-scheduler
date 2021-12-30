@@ -2,11 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Label, Input, Button, Select, DatePicker } from '../components/Form';
 import { PlusIcon } from '@heroicons/react/outline';
-import axios from 'axios';
+import { useMutation } from 'react-query';
 import swal from 'sweetalert';
 
+// Import components
 import Navbar from '../components/Navbar';
 import Card from '../components/Card';
+
+// Import API callers
+import { createEvent } from '../api';
 
 const CreateEvent = () => {
     const initForm = {
@@ -24,15 +28,17 @@ const CreateEvent = () => {
         [e.target.name]: e.target.value,
     });
 
-    const handleSubmit = () => {
-        axios.post(`${process.env.REACT_APP_API_URL}/events`, form, { headers: { Authorization: process.env.REACT_APP_DUMMY_USER_TOKEN } })
-            .then(() => {
-                setForm(initForm);
-                swal("Success", "success", "success")
-                    .then(() => navigate('/'));
-            })
-            .catch((err) => console.error(err));
-    }
+    const mutation = useMutation(() => createEvent(form), {
+        onSuccess: () => {
+            setForm(initForm);
+            swal("success", "success", "success")
+                .then(() => navigate('/'));
+        },
+        onError: () => {
+            swal("error", "error", "error")
+                .then(() => navigate('/'));
+        },
+    })
 
     return (
         <div>
@@ -57,13 +63,13 @@ const CreateEvent = () => {
                             <div className="flex flex-wrap -mx-1">
                                 <div className="w-6/12 px-1">
                                     <Label>
-                                        Start Time
+                                        From
                                     </Label>
                                     <DatePicker selected={form.startTime} onChange={(date) => setForm({ ...form, startTime: date })} />
                                 </div>
                                 <div className="w-6/12 px-1">
                                     <Label>
-                                        End Time
+                                        To
                                     </Label>
                                     <DatePicker selected={form.endTime} onChange={(date) => setForm({ ...form, endTime: date })} />
                                 </div>
@@ -82,7 +88,7 @@ const CreateEvent = () => {
                                 </Button.Outline>
                             </span>
                             <span className="px-1">
-                                <Button.Primary width="auto" onClick={handleSubmit}>
+                                <Button.Primary width="auto" onClick={mutation.mutate}>
                                     Submit
                                 </Button.Primary>
                             </span>

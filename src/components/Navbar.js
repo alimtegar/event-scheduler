@@ -11,7 +11,7 @@ const Navbar = () => {
             <nav className="flex justify-between items-center text-gray-900 w-full">
                 <div className="flex items-center">
                     <Link to="/">
-                        <h1 className="font-extrabold text-md">
+                        <h1 className="font-extrabold text-md no-underline hover:underline hover:decoration-2">
                             {process.env.REACT_APP_NAME}
                         </h1>
                     </Link>

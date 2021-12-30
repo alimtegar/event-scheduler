@@ -1,5 +1,3 @@
-import classNames from 'classnames';
-
 const PrimaryButton = ({
     children,
     type = 'button',
