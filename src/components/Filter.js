@@ -2,16 +2,17 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 
-import { Label, Input, Button, DatePicker } from './Form';
+import { Label, Input, Select, Button, DatePicker } from './Form';
 
 const Filter = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
     const initForm = {
         q: '',
         startTime: null,
         endTime: null,
+        tags: [],
     }
     const [form, setForm] = useState(initForm);
 
@@ -28,10 +29,16 @@ const Filter = () => {
             ...form,
             startTime: form.startTime && format(new Date(form.startTime), 'yyyy-MM-dd'),
             endTime: form.endTime && format(new Date(form.endTime), 'yyyy-MM-dd'),
+            tagId: form.tags.length ? form.tags[0].id : null,
         }
 
-        // Remove null valued item from params
-        params = Object.fromEntries(Object.entries(params).filter(([_, v]) => v != null));
+        // Remove object and empty value item from params
+        params = Object.fromEntries(Object.entries(params).filter(([_, v]) =>
+            typeof v !== 'object' &&
+            v !== undefined &&
+            v !== null &&
+            v !== ''
+        ));
 
         // Stringified params
         params = new URLSearchParams(params).toString();
@@ -42,12 +49,13 @@ const Filter = () => {
     useEffect(() => {
         const params = Object.fromEntries(searchParams);
 
-        setForm((_form) => ({
-            ..._form,
+        setForm({
+            ...initForm,
             ...params,
             startTime: params.startTime && new Date(params.startTime),
             endTime: params.endTime && new Date(params.endTime),
-        }))
+            tags: params.tagId ? [{ id: +params.tagId }] : [],
+        })
     }, [searchParams])
 
     return (
@@ -83,9 +91,11 @@ const Filter = () => {
                 <Label marginBottom={2}>
                     Tag
                 </Label>
-                <select name="" id="" className="appearance-none w-full h-[42px] text-gray-900 text-sm p-2 border-b-[2px] border-gray-200 hover:border-gray-900 focus:outline-none">
-                    <option value="">Select a Tag</option>
-                </select>
+                <Select.Tag
+                    selectedTags={form.tags}
+                    setSelectedTags={(selectedTags) => setForm({ ...form, tags: selectedTags.length ? [selectedTags[selectedTags.length - 1]] : [] })}
+                    placeholder="Select a Tag"
+                />
             </div>
             <div className="px-1 w-1/12">
                 <Button.Outline type="submit">

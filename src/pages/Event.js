@@ -101,7 +101,11 @@ const Event = () => {
                             <Label>
                                 Tag
                             </Label>
-                            <Select.Tag selectedTags={form.tags} setSelectedTags={(selectedTags) => setForm({ ...form, tags: selectedTags })} />
+                            <Select.Tag 
+                                selectedTags={form.tags} 
+                                setSelectedTags={(selectedTags) => setForm({ ...form, tags: selectedTags })} 
+                                placeholder="Select Tags"
+                            />
                         </div>
                         <div className="flex justify-between pt-6 pb-2 -mx-1">
                             <div className="px-1">
