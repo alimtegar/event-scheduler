@@ -28,7 +28,7 @@ const Event = ({ id, title, description, startTime, endTime, tags }) => (
                     <span className="ml-2 -mx-1">
                         {tags.map((tag) => (
                             <span className="mx-1" key={tag.id}>
-                                <Tag {...tag} />
+                                <Tag link {...tag} />
                             </span>
                         ))}
                     </span>

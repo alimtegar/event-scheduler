@@ -40,13 +40,14 @@ const Filter = () => {
             v !== ''
         ));
 
-        // Stringified params
+        // Params to string
         params = new URLSearchParams(params).toString();
 
         navigate('/?' + params)
     }
 
     useEffect(() => {
+        // Params to to object
         const params = Object.fromEntries(searchParams);
 
         setForm({

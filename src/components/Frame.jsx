@@ -4,7 +4,7 @@ const Frame = ({ children, size }) => {
 		lg: 'w-20 h-20',
 	};
 
-	let initCn = 'flex flex-col justify-center items-center bg-gray-900 text-white mr-6 rounded-xl shadow-lg';
+	let initCn = 'flex flex-col items-center justify-center items-center bg-gray-900 text-white mr-6 rounded-xl shadow-lg';
 	let sizeCn = sizes[size];
 
 	return (

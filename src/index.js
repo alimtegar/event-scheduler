@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { BrowserRouter } from 'react-router-dom';
+
 import 'react-datepicker/dist/react-datepicker.css';
 import './index.css';
 
 ReactDOM.render(
 	<React.StrictMode>
+		<BrowserRouter>
 			<App />
+		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

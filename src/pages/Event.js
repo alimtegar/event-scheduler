@@ -63,7 +63,7 @@ const Event = () => {
     });
 
     return (
-        <div>
+        <>
             <Navbar />
 
             <section className="p-6">
@@ -144,7 +144,7 @@ const Event = () => {
                     </form>
                 </Card>
             </section>
-        </div>
+        </>
     );
 };
 

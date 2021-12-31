@@ -20,7 +20,7 @@ const Events = () => {
     }, [refetch, searchParams])
 
     return (
-        <div>
+        <>
             <Navbar />
 
             <section className="p-6">
@@ -40,7 +40,7 @@ const Events = () => {
                     <PlusIcon className="w-8 h-8" />
                 </Button.Primary>
             </Link>
-        </div>
+        </>
     );
 };
 

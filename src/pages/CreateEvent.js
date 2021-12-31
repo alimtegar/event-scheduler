@@ -41,7 +41,7 @@ const CreateEvent = () => {
     })
 
     return (
-        <div>
+        <>
             <Navbar />
 
             <section className="p-6">
@@ -100,7 +100,7 @@ const CreateEvent = () => {
                     </form>
                 </Card>
             </section>
-        </div>
+        </>
     );
 };
 

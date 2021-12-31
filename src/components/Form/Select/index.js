@@ -1,5 +1,7 @@
 import Tag from './TagSelect';
 
-export default {
-    Tag
+const Select = {
+    Tag,
 };
+
+export default Select;
