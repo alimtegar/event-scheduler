@@ -56,7 +56,7 @@ const TagSelect = ({ selectedTags, setSelectedTags, placeholder, form = false, m
 			{({ open }) => (
 				<>
 					<div className="mt-1 relative">
-						<Listbox.Button className="relative w-full h-[42px] p-2 border-b-2 border-gray-200 hover:border-gray-900 text-sm text-left cursor-default focus:outline-none">
+						<Listbox.Button className="group relative text-sm text-left w-full h-[42px] p-2 border-b-2 border-gray-200 hover:border-gray-900 focus:outline-none cursor-pointer">
 							{selectedTags.length ? selectedTags.map((selectedTag) => (
 								<span className="mx-1" key={selectedTag.id}>
 									<Tag {...tags.find((tag) => tag.id === selectedTag.id)} />
@@ -68,7 +68,7 @@ const TagSelect = ({ selectedTags, setSelectedTags, placeholder, form = false, m
 							)}
 							<span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
 								<ChevronDownIcon
-									className="w-5 h-5 text-gray-400"
+									className="w-5 h-5 text-gray-400 group-hover:text-gray-900"
 									aria-hidden="true"
 								/>
 							</span>
@@ -77,11 +77,11 @@ const TagSelect = ({ selectedTags, setSelectedTags, placeholder, form = false, m
 						<Transition
 							show={open}
 							as={Fragment}
-							leave="transition ease-in duration-100"
-							leaveFrom="opacity-100"
-							leaveTo="opacity-0"
+							// leave="transition ease-in duration-100"
+							// leaveFrom="opacity-100"
+							// leaveTo="opacity-0"
 						>
-							<Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-96 rounded py-2 text-base overflow-auto focus:outline-none sm:text-sm">
+							<Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-md max-h-96 rounded py-2 text-base overflow-auto focus:outline-none sm:text-sm">
 								{form && (
 									<form className="flex items-end px-4 pb-4 -mx-2" onSubmit={handleFormSubmit}>
 										<div className="w-8/12 px-2">
@@ -131,7 +131,7 @@ const TagSelect = ({ selectedTags, setSelectedTags, placeholder, form = false, m
 				</>
 			)}
 		</Listbox>
-	)
+	);
 };
 
 export default TagSelect;

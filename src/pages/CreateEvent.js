@@ -45,7 +45,7 @@ const CreateEvent = () => {
             <Navbar />
 
             <section className="p-6">
-                <Card icon={(<PlusIcon className="w-8 h-8" />)} title="Add Event Schedule" description="Vitae fringilla sapien dictum sit amet.">
+                <Card icon={(<PlusIcon className="w-8 h-8" />)} title="Add New Event Schedule" description="Vitae fringilla sapien dictum sit amet.">
                     <form className="-my-2">
                         <div className="py-2">
                             <Label>
@@ -87,9 +87,6 @@ const CreateEvent = () => {
                         </div>
                         <div className="flex justify-between pt-6 pb-2 -mx-1">
                             <span className="px-1">
-                                <Button.Outline width="auto">
-                                    Reset
-                                </Button.Outline>
                             </span>
                             <span className="px-1">
                                 <Button.Primary width="auto" onClick={mutation.mutate}>

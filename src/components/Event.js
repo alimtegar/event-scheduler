@@ -18,7 +18,7 @@ const Event = ({ id, title, description, startTime, endTime, tags }) => (
 
         <div className="flex-auto">
             <div className="flex items-center mb-2">
-                <Link to={`events/${id}`}>
+                <Link to={`/events/${id}`}>
                     <h2 className="inline-flex font-extrabold text-gray-900 no-underline hover:underline hover:decoration-2">
                         {title}
                     </h2>
@@ -62,7 +62,7 @@ const Event = ({ id, title, description, startTime, endTime, tags }) => (
         </div>
 
         <div className="pr-4">
-            <Link to={`events/${id}`}>
+            <Link to={`/events/${id}`}>
                 <Button.Outline circle>
                     <ChevronRightIcon className="w-5 h-5" />
                 </Button.Outline>

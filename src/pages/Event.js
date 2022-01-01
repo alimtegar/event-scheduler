@@ -13,6 +13,9 @@ import Card from '../components/Card';
 import { getEvent, updateEvent, deleteEvent } from '../api';
 
 const Event = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+
     const initForm = {
         title: '',
         description: '',
@@ -20,8 +23,6 @@ const Event = () => {
         endTime: new Date(),
         tags: [],
     };
-    const { id } = useParams();
-    const navigate = useNavigate();
     const [form, setForm] = useState(initForm);
 
     const handleChange = (e) => setForm({
@@ -67,7 +68,7 @@ const Event = () => {
             <Navbar />
 
             <section className="p-6">
-                <Card icon={(<DocumentTextIcon className="w-8 h-8" />)} title="Event Schedule Details" description="Aenean sollicitudin erat leo.">
+                <Card icon={(<DocumentTextIcon className="w-8 h-8" />)} title="Event Schedule Details" description="Massa sapien faucibus et molestie.">
                     <form className="-my-2">
                         <div className="py-2">
                             <Label>

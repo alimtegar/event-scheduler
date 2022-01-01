@@ -1,29 +1,21 @@
-import { useRoutes, BrowserRouter } from 'react-router-dom';
-
 import axios from 'axios';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-
-
 // Import components
-// import Events from './pages/Events';
-// import Event from './pages/Event';
-// import CreateEvent from './pages/CreateEvent';
+import Wrapper from './components/Wrapper';
 
-import routes from './routes';
+// Import contexts
+import { AuthContextProvider } from './contexts/AuthContext';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_DUMMY_USER_TOKEN;
+// axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_DUMMY_USER_TOKEN;
 
-const App = () => {
-	const isLoggedIn = false;
-	const _routes = useRoutes(routes(isLoggedIn));
-
-	return (
-		<QueryClientProvider client={new QueryClient()}>
-			{_routes}
-		</QueryClientProvider>
-	);
-};
+const App = () => (
+	<QueryClientProvider client={new QueryClient()}>
+		<AuthContextProvider>
+			<Wrapper />
+		</AuthContextProvider>
+	</QueryClientProvider>
+);
 
 export default App;

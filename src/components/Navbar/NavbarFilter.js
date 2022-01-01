@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 
-import { Label, Input, Select, Button, DatePicker } from './Form';
+import { Label, Input, Select, Button, DatePicker } from '../Form';
 
-const Filter = () => {
+const NavbarFilter = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
@@ -107,4 +107,4 @@ const Filter = () => {
     )
 };
 
-export default Filter;
+export default NavbarFilter;

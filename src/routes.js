@@ -7,35 +7,41 @@ import Events from './pages/Events';
 import Event from './pages/Event';
 import CreateEvent from './pages/CreateEvent';
 
-const routes = (isLoggedIn) => {
-    const protectRoute = (element) => {
-        return isLoggedIn ? element : (<Navigate to="/login" />);
+const routes = (isAuthenticated = undefined) => {
+    const protectRoute = (element, routeType) => {
+        switch (routeType) {
+            case 'PROTECTED': return isAuthenticated ? element : (<Navigate to="/login" />);
+            case 'PUBLIC': return isAuthenticated ? (<Navigate to="/events" />) : element;
+            default: return element;
+        }
     }
 
     return [
+        // Guest routes
         {
             path: '/login',
-            element: (<Login />),
+            element: protectRoute(<Login />, 'PUBLIC'),
         },
         {
             path: '/register',
-            element: (<Register />),
+            element: protectRoute(<Register />, 'PUBLIC'),
         },
+        // Authenticated routes
         {
             path: '/',
-            element: protectRoute(<Events />),
+            element: protectRoute(<Events />, 'PROTECTED'),
         },
         {
             path: '/events',
-            element: protectRoute(<Events />),
+            element: protectRoute(<Events />, 'PROTECTED'),
         },
         {
             path: '/events/:id',
-            element: protectRoute(<Event />),
+            element: protectRoute(<Event />, 'PROTECTED'),
         },
         {
             path: '/events/create',
-            element: protectRoute(<CreateEvent />),
+            element: protectRoute(<CreateEvent />, 'PROTECTED'),
         },
     ]
 };

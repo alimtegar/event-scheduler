@@ -1,9 +1,23 @@
 import axios from 'axios';
 
+// Auth
+export const login = async (credentials) => {
+    const { data } = await axios.post('/login', credentials)
+        .catch((err) => { throw Error(err) });
+
+    return data;
+}
+
+export const verifyToken = async (token) => {
+    const { data } = await axios.get('/verify-token', { headers: { 'Authorization': token } })
+        .catch((err) => { throw Error(err) });
+        
+    return data;
+}
+
+// Events
 export const getEvents = async (params) => {
-    const { data } = await axios.get('/events', {
-        params: params,
-    })
+    const { data } = await axios.get('/events', { params: params })
         .catch((err) => { throw Error(err) });
 
     return data;
