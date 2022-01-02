@@ -77,9 +77,6 @@ const TagSelect = ({ selectedTags, setSelectedTags, placeholder, form = false, m
 						<Transition
 							show={open}
 							as={Fragment}
-							// leave="transition ease-in duration-100"
-							// leaveFrom="opacity-100"
-							// leaveTo="opacity-0"
 						>
 							<Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-md max-h-96 rounded py-2 text-base overflow-auto focus:outline-none sm:text-sm">
 								{form && (
@@ -98,7 +95,7 @@ const TagSelect = ({ selectedTags, setSelectedTags, placeholder, form = false, m
 										</div>
 										<div className="w-2/12 px-2">
 											<Button.Primary onClick={handleFormSubmit}>
-												Add New Tag
+												Add Tag
 											</Button.Primary>
 										</div>
 									</form>
@@ -107,7 +104,7 @@ const TagSelect = ({ selectedTags, setSelectedTags, placeholder, form = false, m
 								{tags.map((tag) => (
 									<Listbox.Option
 										key={tag.id}
-										className={classNames('cursor-pointer select-none relative hover:bg-gray-50 py-2 pl-4 pr-9', {
+										className={classNames('cursor-pointer select-none relative hover:bg-gray-50 py-2 pl-4 pr-16', {
 											'bg-gray-50': isSelectedTag(tag),
 										})}
 										value={tag}

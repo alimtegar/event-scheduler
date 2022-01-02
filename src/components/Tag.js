@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom';
 
-const TagInner = ({ link, title, color }) => {
+const TagInner = ({ link = false, title, color }) => {
     const initCn = 'relative inline-flex items-center bg-opacity-10 text-xs -mt-0.5 py-1 px-4 rounded-full';
     const linkCn = link ? 'no-underline hover:underline' : '';
 
@@ -20,7 +20,7 @@ const TagInner = ({ link, title, color }) => {
     );
 };
 
-const Tag = ({ link, id, ...props }) => {
+const Tag = ({ link = false, id, ...props }) => {
     const [searchParams] = useSearchParams();
 
     // Params to to object
@@ -40,7 +40,7 @@ const Tag = ({ link, id, ...props }) => {
             <TagInner link {...props} />
         </Link>
     ) : (
-        <TagInner link {...props} />
+        <TagInner {...props} />
     );
 }
 

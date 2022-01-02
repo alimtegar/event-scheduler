@@ -47,19 +47,19 @@ const Event = () => {
     const updateMutation = useMutation(() => updateEvent(id, form), {
         onSuccess: () => {
             setForm(initForm);
-            swal("success", "success", "success");
+            swal("Success", "Vel turpis nunc eget lorem.", "success");
         },
-        onError: () => {
-            swal("error", "error", "error");
+        onError: (err) => {
+            swal("Error", err.message, "error");
         },
     });
     const deleteMutation = useMutation(() => deleteEvent(id), {
         onSuccess: () => {
-            swal("success", "success", "success")
+            swal("Success", "Maecenas accumsan lacus vel facilisis.", "success")
                 .then(() => navigate('/'));
         },
-        onError: () => {
-            swal("error", "error", "error");
+        onError: (err) => {
+            swal("Error", err.message, "error");
         },
     });
 
@@ -112,9 +112,9 @@ const Event = () => {
                             <div className="px-1">
                                 <Button.Outline color="red" width="auto" onClick={() => swal({
                                     title: "Are You Sure?",
-                                    text: "Nulla facilisi. Nunc sem odio.",
+                                    text: "Neque ornare aenean euismod elementum.",
                                     icon: "warning",
-                                    buttons: true,
+                                    buttons: ["Cancel", "Yes, Delete"],
                                     dangerMode: true,
                                 })
                                     .then((willDelete) => {
@@ -129,10 +129,9 @@ const Event = () => {
                             <span className="px-1">
                                 <Button.Primary width="auto" onClick={() => swal({
                                     title: "Are You Sure?",
-                                    text: "Nulla facilisi. Nunc sem odio.",
+                                    text: "Sagittis eu volutpat odio facilisis.",
                                     icon: "warning",
-                                    buttons: true,
-                                    dangerMode: true,
+                                    buttons: ["Cancel", "Yes, Save Changes"],
                                 })
                                     .then((willDelete) => {
                                         if (willDelete) { updateMutation.mutate(); }

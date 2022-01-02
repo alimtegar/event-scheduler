@@ -11,7 +11,7 @@ body {
 /* React Datepicker */
 .react-datepicker {
     font-family: 'Mulish', sans-serif;
-    @apply text-sm p-1 border-0 shadow rounded
+    @apply text-gray-500 text-xs p-1 border-0 shadow rounded
 }
 
 .react-datepicker__triangle {
@@ -39,7 +39,7 @@ body {
 }
 
 .react-datepicker__navigation--previous {
-    @apply left-2
+    @apply left-1
 }
 
 .react-datepicker__navigation--next {
@@ -47,11 +47,15 @@ body {
 }
 
 .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
-    @apply text-sm leading-5 mt-[1px] mb-2
+    @apply text-xs leading-5 mt-0.5 mb-3
 }
 
 .react-datepicker__month {
     @apply m-1
+}
+
+.react-datepicker__day-names {
+    @apply mb-0
 }
 
 .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
@@ -84,21 +88,26 @@ body {
     @apply text-gray-900
 }
 
+.react-datepicker__year-read-view--down-arrow, .react-datepicker__month-read-view--down-arrow, .react-datepicker__month-year-read-view--down-arrow, .react-datepicker__navigation-icon::before {
+    width: 7px;
+    height: 7px;
+}
+
 /* SweetAlert 2 */
 .swal-modal {
     @apply rounded shadow
 }
 
+.swal-icon {
+    @apply mx-auto mt-8 mb-6
+}
+
 .swal-title {
-    @apply text-gray-900 font-extrabold text-lg leading-7 mb-0 
+    @apply text-gray-900 font-extrabold text-base leading-7 mb-0 !important
 }
 
 .swal-text {
     @apply text-gray-500 text-xs
-}
-
-.swal-button {
-    @apply rounded-full
 }
 
 .swal-button-container {
@@ -106,7 +115,23 @@ body {
 }
 
 .swal-footer {
-    @apply m-0 p-2
+    @apply m-0 p-6 text-center
+}
+
+.swal-button {
+    @apply inline-flex items-center justify-center font-bold text-sm rounded-full h-[42px] pt-[7px] pb-[8px] px-6 shadow-none !important
+}
+
+.swal-button--confirm {
+    @apply bg-white hover:bg-gray-900 text-gray-900 hover:text-white border-2 border-solid border-gray-900 !important
+}
+
+.swal-button--danger {
+    @apply hover:bg-red-500 text-red-500 hover:text-white border-red-500 !important
+}
+
+.swal-button--cancel {
+    @apply bg-gray-900 hover:bg-gray-700 text-white hover:text-white shadow-md !important
 }
 
 @tailwind utilities;

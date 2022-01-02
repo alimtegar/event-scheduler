@@ -15,6 +15,13 @@ export const verifyToken = async (token) => {
     return data;
 }
 
+export const register = async (user) => {
+    const { data } = await axios.post('/register', user)
+        .catch((err) => { throw Error(err) });
+
+    return data;
+}
+
 // Events
 export const getEvents = async (params) => {
     const { data } = await axios.get('/events', { params: params })
