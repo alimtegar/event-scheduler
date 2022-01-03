@@ -41,10 +41,18 @@ const Login = () => {
         <Layout.Auth
             icon={(<LoginIcon className="w-8 h-8 ml-1" />)}
             title="Login"
-            description="Dis parturient montes nascetur ridiculus."
+            description="Access your account."
         >
             <form className="-my-2" onSubmit={(e) => {
                 e.preventDefault();
+
+                // Check empty column
+                if(Object.values(form).every((x) => x === '' || x === null)) {
+                    swal('Invalid Input', 'Columns cannot be empty.', 'error');
+
+                    return
+                }
+
                 mutation.mutate();
             }}>
                 <div className="py-2">
@@ -69,7 +77,7 @@ const Login = () => {
                     </span>
                     <span className="px-1">
                         <Button.Primary type="submit" width="auto">
-                            Login
+                            Log In
                         </Button.Primary>
                     </span>
                 </div>

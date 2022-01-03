@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Listbox, Transition } from '@headlessui/react'
 import { XIcon, ChevronDownIcon } from '@heroicons/react/solid'
 import classNames from 'classnames';
+import swal from 'sweetalert';
 
 // Import components
 import Tag from '../../Tag';
@@ -41,6 +42,13 @@ const TagSelect = ({ selectedTags, setSelectedTags, placeholder, form = false, m
 	});
 
 	const handleFormSubmit = (e) => {
+		// Check empty column
+		if (_form.title === '') {
+			swal('Invalid Input', 'Columns cannot be empty.', 'error');
+
+			return
+		}
+
 		setTags([...tags, _form]);
 		setForm(initForm);
 	};

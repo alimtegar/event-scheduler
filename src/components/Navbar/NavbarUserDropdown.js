@@ -31,7 +31,7 @@ export default function NavbarUserDropdown() {
 			<Transition as={Fragment}>
 				<Menu.Items className="absolute z-20 right-0 mt-1 origin-top-right bg-white w-48 rounded shadow-md focus:outline-none">
 					<div className="py-2">
-						<Menu.Item>
+						{/* <Menu.Item>
 							{({ active }) => (
 								<button
 									className={`${active ? 'bg-gray-50' : ''} text-gray-900 flex items-center w-full pl-4 pr-16 py-2`}
@@ -39,14 +39,14 @@ export default function NavbarUserDropdown() {
 									Edit Profile
 								</button>
 							)}
-						</Menu.Item>
+						</Menu.Item> */}
 						<Menu.Item>
 							{({ active }) => (
 								<button
 									className={`${active ? 'bg-gray-50' : ''} text-gray-900 flex items-center w-full pl-4 pr-16 py-2`}
 									onClick={() => swal({
 										title: "Are You Sure?",
-										text: "Sagittis eu volutpat odio facilisis.",
+										text: "Are you sure want to log out from your account?",
 										icon: "warning",
 										buttons: ["Cancel", "Yes, Log Out"],
 										dangerMode: true,

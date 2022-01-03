@@ -17,7 +17,7 @@ const CreateEvent = () => {
         title: '',
         description: '',
         startTime: new Date(),
-        endTime: new Date(),
+        endTime: null,
         tags: [],
     };
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ const CreateEvent = () => {
     const mutation = useMutation(() => createEvent(form), {
         onSuccess: () => {
             setForm(initForm);
-            swal("Success", "Senectus et netus et malesuada.", "success")
+            swal("Success", "Event schedule added successfully.", "success")
                 .then(() => navigate('/'));
         },
         onError: (err) => {
@@ -45,7 +45,11 @@ const CreateEvent = () => {
             <Navbar />
 
             <section className="p-6">
-                <Card icon={(<PlusIcon className="w-8 h-8" />)} title="Add Event Schedule" description="Vitae fringilla sapien dictum sit amet.">
+                <Card
+                    icon={(<PlusIcon className="w-8 h-8" />)}
+                    title="Add Event Schedule"
+                    description="Remind yourself of the upcoming schedule."
+                >
                     <form className="-my-2">
                         <div className="py-2">
                             <Label>
@@ -65,13 +69,13 @@ const CreateEvent = () => {
                                     <Label>
                                         From
                                     </Label>
-                                    <DatePicker selected={form.startTime} onChange={(date) => setForm({ ...form, startTime: date })} />
+                                    <DatePicker dateFormat="dd-MM-yyyy" placeholderText="Select a date" selected={form.startTime} onChange={(date) => setForm({ ...form, startTime: date })} />
                                 </div>
                                 <div className="w-6/12 px-1">
                                     <Label>
                                         To
                                     </Label>
-                                    <DatePicker selected={form.endTime} onChange={(date) => setForm({ ...form, endTime: date })} />
+                                    <DatePicker dateFormat="dd-MM-yyyy" placeholderText="Select a date" selected={form.endTime} onChange={(date) => setForm({ ...form, endTime: date })} />
                                 </div>
                             </div>
                         </div>
@@ -90,7 +94,18 @@ const CreateEvent = () => {
                             <span className="px-1">
                             </span>
                             <span className="px-1">
-                                <Button.Primary width="auto" onClick={mutation.mutate}>
+                                <Button.Primary width="auto" onClick={() => {
+                                    // Check empty column
+                                    const { tags, startTime, endTime, ..._form } = form;
+
+                                    if (Object.values(_form).every((x) => x === '' || x === null)) {
+                                        swal('Invalid Input', 'Columns cannot be empty.', 'error');
+
+                                        return
+                                    }
+
+                                    mutation.mutate();
+                                }}>
                                     Add
                                 </Button.Primary>
                             </span>

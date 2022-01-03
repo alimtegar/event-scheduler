@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Events from './pages/Events';
 import Event from './pages/Event';
 import CreateEvent from './pages/CreateEvent';
+import { format } from 'date-fns';
 
 const routes = (isAuthenticated = undefined) => {
     const protectRoute = (element, routeType) => {

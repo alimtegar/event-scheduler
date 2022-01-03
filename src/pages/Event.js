@@ -46,8 +46,7 @@ const Event = () => {
     });
     const updateMutation = useMutation(() => updateEvent(id, form), {
         onSuccess: () => {
-            setForm(initForm);
-            swal("Success", "Vel turpis nunc eget lorem.", "success");
+            swal("Success", "Changes in event schedule saved successfully.", "success");
         },
         onError: (err) => {
             swal("Error", err.message, "error");
@@ -55,7 +54,7 @@ const Event = () => {
     });
     const deleteMutation = useMutation(() => deleteEvent(id), {
         onSuccess: () => {
-            swal("Success", "Maecenas accumsan lacus vel facilisis.", "success")
+            swal("Success", "Event schedule deleted successfully.", "success")
                 .then(() => navigate('/'));
         },
         onError: (err) => {
@@ -68,7 +67,11 @@ const Event = () => {
             <Navbar />
 
             <section className="p-6">
-                <Card icon={(<DocumentTextIcon className="w-8 h-8" />)} title="Event Schedule Details" description="Massa sapien faucibus et molestie.">
+                <Card
+                    icon={(<DocumentTextIcon className="w-8 h-8" />)}
+                    title="Event Schedule Details"
+                    description="See more or update schedule information."
+                >
                     <form className="-my-2">
                         <div className="py-2">
                             <Label>
@@ -88,13 +91,13 @@ const Event = () => {
                                     <Label>
                                         From
                                     </Label>
-                                    <DatePicker selected={form.startTime} onChange={(date) => setForm({ ...form, startTime: date })} />
+                                    <DatePicker dateFormat="dd-MM-yyyy" selected={form.startTime} onChange={(date) => setForm({ ...form, startTime: date })} />
                                 </div>
                                 <div className="w-6/12 px-1">
                                     <Label>
                                         To
                                     </Label>
-                                    <DatePicker selected={form.endTime} onChange={(date) => setForm({ ...form, endTime: date })} />
+                                    <DatePicker dateFormat="dd-MM-yyyy" selected={form.endTime} onChange={(date) => setForm({ ...form, endTime: date })} />
                                 </div>
                             </div>
                         </div>
@@ -102,17 +105,18 @@ const Event = () => {
                             <Label>
                                 Tag
                             </Label>
-                            <Select.Tag 
-                                selectedTags={form.tags} 
-                                setSelectedTags={(selectedTags) => setForm({ ...form, tags: selectedTags })} 
+                            <Select.Tag
+                                selectedTags={form.tags}
+                                setSelectedTags={(selectedTags) => setForm({ ...form, tags: selectedTags })}
                                 placeholder="Select Tags"
+                                form
                             />
                         </div>
                         <div className="flex justify-between pt-6 pb-2 -mx-1">
                             <div className="px-1">
                                 <Button.Outline color="red" width="auto" onClick={() => swal({
                                     title: "Are You Sure?",
-                                    text: "Neque ornare aenean euismod elementum.",
+                                    text: "Are you sure want to delete the event schedule?",
                                     icon: "warning",
                                     buttons: ["Cancel", "Yes, Delete"],
                                     dangerMode: true,
@@ -129,11 +133,20 @@ const Event = () => {
                             <span className="px-1">
                                 <Button.Primary width="auto" onClick={() => swal({
                                     title: "Are You Sure?",
-                                    text: "Sagittis eu volutpat odio facilisis.",
+                                    text: "are you sure you want to save the schedule changes?",
                                     icon: "warning",
                                     buttons: ["Cancel", "Yes, Save Changes"],
                                 })
                                     .then((willDelete) => {
+                                        // Check empty column
+                                        const { tags, startTime, endTime, ..._form } = form;
+
+                                        if (Object.values(_form).every((x) => x === '' || x === null)) {
+                                            swal('Invalid Input', 'Columns cannot be empty.', 'error');
+
+                                            return
+                                        }
+
                                         if (willDelete) { updateMutation.mutate(); }
                                     })
                                 }>

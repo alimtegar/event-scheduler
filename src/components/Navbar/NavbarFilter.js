@@ -70,7 +70,7 @@ const NavbarFilter = () => {
                 </Label>
                 <DatePicker
                     placeholderText="Select a date"
-                    dateFormat="yyyy-MM-dd"
+                    dateFormat="dd-MM-yyyy"
                     isClearable
                     selected={form.startTime}
                     onChange={(date) => setForm({ ...form, startTime: date })}
@@ -82,7 +82,7 @@ const NavbarFilter = () => {
                 </Label>
                 <DatePicker
                     placeholderText="Select a date"
-                    dateFormat="yyyy-MM-dd"
+                    dateFormat="dd-MM-yyyy"
                     isClearable
                     selected={form.endTime}
                     onChange={(date) => setForm({ ...form, endTime: date })}

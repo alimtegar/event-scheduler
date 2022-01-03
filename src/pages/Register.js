@@ -43,10 +43,25 @@ const Register = () => {
         <Layout.Auth
             icon={(<UserAddIcon className="w-8 h-8 ml-1" />)}
             title="Register"
-            description="Ornare suspendisse sed nisi lacus."
+            description="Create your account."
         >
             <form className="-my-2" onSubmit={(e) => {
                 e.preventDefault();
+
+                // Check empty column
+                if(Object.values(form).every((x) => x === '' || x === null)) {
+                    swal('Invalid Input', 'Columns cannot be empty.', 'error');
+
+                    return
+                }
+
+                // Check password match
+                if (form.password !== form.confirmPassword) {
+                    swal('Invalid Input', 'Password does not match.', 'error');
+
+                    return;
+                }
+
                 mutation.mutate();
             }}>
                 <div className="py-2">

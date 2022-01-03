@@ -11,8 +11,8 @@ const Event = ({ id, title, description, startTime, endTime, tags }) => (
     <div className="flex items-center bg-white p-4 rounded border-l-[4px] border-gray-900 shadow">
         <div>
             <Frame size="lg">
-                <span className="font-extrabold text-2xl">{format(new Date(endTime), 'dd')}</span>
-                <span className="font-bold text-sm -mt-1">{format(new Date(endTime), 'MMMM').substring(0, 3).toUpperCase()}</span>
+                <span className="font-extrabold text-2xl">{format(new Date(startTime), 'dd')}</span>
+                <span className="font-bold text-sm -mt-1">{format(new Date(startTime), 'MMMM').substring(0, 3).toUpperCase()}</span>
             </Frame>
         </div>
 
